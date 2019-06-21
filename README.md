@@ -40,7 +40,8 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [x] Fork and clone this repository.
 - [x] **CD into the folder** where you downloaded the repository.
-- [] Run `yarn` or `npm i` to download all dependencies.
+- [x] Run `yarn` or `npm i` to download all dependencies.
+- [] add other dependencies 
 - [] Type `yarn test` or `npm test` to run the tests. The `test` script is already configured.
 
 ## Minimum Viable Product
