@@ -24,7 +24,9 @@ server.post('/games', (req, res) => {
         res.status(422).json({
             error: 'Please provide required title and genre fields'
         })
-    } else {
+        //STRETCH
+    } 
+     else {
         Games.addGames(req.body)
         .then(game => {
             res.status(201).json(game)
@@ -33,6 +35,7 @@ server.post('/games', (req, res) => {
             res.status(500).json(error)
         })
     }
+
   });
 
   // ============================ STRETCH ===========================
