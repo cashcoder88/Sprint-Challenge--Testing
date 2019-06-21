@@ -25,7 +25,7 @@ describe('GET', () => {
          return supertest(server).get('/games')
          .then(res => {
              if(res.body.length < 1) {
-               expect(res.body).toEqual({})
+               expect(res.body).toEqual([{}])
              } else {
                 expect(200)
              }
@@ -37,7 +37,7 @@ describe('GET', () => {
 });
 
 describe('POST', () => {
-    // Need to change this every test
+    // Need to change this every test, if failing, change some title or some genre
     const mockGameDataGood = {
         "title": "some titleeee",
         "genre": "some genreee"
@@ -84,5 +84,31 @@ describe('POST', () => {
     });
     it('Throws 404 if bad endpoint', () => {
         return supertest(server).post('/gamesss').expect(404)
+     });
+     describe('GET/:id', () => {
+         let id = 1 || 2 || 3 || 4
+         it('responds with 200 if passed correct ID', () => {
+            return supertest(server).get(`/games/${id}`).expect(200)
+         });
+         it('responds with an object', () => {
+            return supertest(server).get(`/games/${id}`)
+            .then(res => {
+                expect(typeof res.body === 'object').toBeTruthy()
+            })
+         });
+         it('responds with Some Json Content', () => {
+            return supertest(server).get(`/games/${id}`).expect('Content-Type', /json/i)
+         });
+         it('Throws 404 if bad endpoint', () => {
+            return supertest(server).get(`/games/${id + 1000}`).expect(404)
+         });
+         it('responds with error message when id doesnt exist', () => {
+            return supertest(server).get(`/games/${id + 1000}`)
+            .then(res => {
+                  expect(res.body).toEqual({
+                    "error": "Please provide an existing ID to see corresponding game"
+                  })   
+            })
+        });
      });
 });
