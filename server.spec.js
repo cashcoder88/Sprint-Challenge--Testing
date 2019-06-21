@@ -36,6 +36,37 @@ describe('GET', () => {
      });
 });
 
-// describe('POST', () => {
-    
-// });
+describe('POST', () => {
+    const mockGameDataGood = {
+        "title": "some title",
+        "genre": "some genre"
+    }
+    const mockGameDataBad = {
+        "tile": "some tile",
+        "era": "some era"
+    }
+    it('responds with 201 when correct data is sent', (done) => {
+        return supertest(server)
+            .post('/games')
+            .send(mockGameDataGood)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .end((err) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+    it('responds with 201 when correct data is sent', (done) => {
+        return supertest(server)
+            .post('/games')
+            .send(mockGameDataBad)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(422)
+            .end((err) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+});
