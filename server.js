@@ -54,7 +54,19 @@ server.get('/games/:id', (req, res) => {
 });
 
 server.delete('/games/:id', (req, res) => {
-    
+    Games.deleteGame(req.params.id)
+    .then(deleted => {
+        if (deleted > 0) {
+            res.status(200).json({message: 'deleted game with specified id!'})
+        } else {
+            res.status(404).json({
+                message: 'no game with specified id exists'
+            })
+        }
+    })
+    .catch(error => {
+        res.status(500).json(error)
+    })
 });
 
 
