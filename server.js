@@ -35,5 +35,24 @@ server.post('/games', (req, res) => {
     }
   });
 
+  // ============================ STRETCH ===========================
+  
+server.get('/games/:id', (req, res) => {
+    Games.getGamesById(req.params.id)
+    .then(game => {
+        if(!game) {
+            res.status(404).json({
+                error: 'Please provide an existing ID to see corresponding game'
+            })
+        } else {
+            res.status(200).json(game)
+        }
+    })
+    .catch(error => {
+        res.status(500).json(error)
+    })
+});
+
+
 
 module.exports = server;
