@@ -53,6 +53,11 @@ server.get('/games/:id', (req, res) => {
     })
 });
 
+server.delete('/games/:id', (req, res) => {
+    
+});
+
+
 
 
 module.exports = server;
