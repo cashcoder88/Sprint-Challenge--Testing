@@ -1,13 +1,25 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex('games').del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex('games').insert([
+        {
+          title: 'Pacman', 
+          genre: 'Arcade', 
+          releaseYear: 1980 
+        },
+        {
+          title: 'Assassins Creed', 
+          genre: 'Console', 
+          releaseYear: 2008 
+        },
+        {
+          title: 'World of Warcraft', 
+          genre: 'MMORPG', 
+          releaseYear: 2004 
+        },
       ]);
     });
 };
