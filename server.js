@@ -19,5 +19,21 @@ server.get('/games', (req, res) => {
     })
 });
 
+server.post('/games', (req, res) => {
+    if(!req.body.title || !req.body.genre) {
+        res.status(422).json({
+            error: 'Please provide required title and genre fields'
+        })
+    } else {
+        Games.addGames(req.body)
+        .then(game => {
+            res.status(201).json(game)
+          })
+          .catch(error => {
+            res.status(500).json(error)
+        })
+    }
+  });
+
 
 module.exports = server;
