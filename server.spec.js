@@ -37,9 +37,10 @@ describe('GET', () => {
 });
 
 describe('POST', () => {
+    // Need to change this every test
     const mockGameDataGood = {
-        "title": "some title",
-        "genre": "some genre"
+        "title": "some titleeee",
+        "genre": "some genreee"
     }
     const mockGameDataBad = {
         "tile": "some tile",
@@ -57,7 +58,7 @@ describe('POST', () => {
                 done();
             });
     });
-    it('responds with 201 when correct data is sent', (done) => {
+    it('responds with 422 when bad data is sent', (done) => {
         return supertest(server)
             .post('/games')
             .send(mockGameDataBad)
@@ -69,4 +70,19 @@ describe('POST', () => {
                 done();
             });
     });
+    it('responds with 422 when NO data is sent', (done) => {
+        return supertest(server)
+            .post('/games')
+            .send()
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(422)
+            .end((err) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+    it('Throws 404 if bad endpoint', () => {
+        return supertest(server).post('/gamesss').expect(404)
+     });
 });
